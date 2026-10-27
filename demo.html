@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bear Budget | Example</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="demo-data.js"></script>
+  <script defer src="budget.js"></script>
+</head>
+<body data-mode="demo">
+  <header>
+    <div class="brand"><span class="brand-mark" aria-hidden="true">🐻‍❄️</span><h1>Bear Budget</h1></div>
+    <nav aria-label="Main navigation"><a href="#home">Home</a><a href="#budget">Budget</a><a href="#plan">Plan</a><a href="#benefits">NJ help</a><a href="lessons.html?example=1">Kids' lessons</a><a href="high-school-lessons.html?example=1">High school lessons</a><a href="index.html">Your budget</a></nav>
+  </header>
+  <main>
+    <div class="example-banner">
+      <div><strong>Example household</strong><p>Fictional data for a New Jersey family of four.</p></div>
+      <button id="demo-reset" class="button-quiet" type="button">Reset example</button>
+    </div>
+    <p id="message" role="status"></p>
+
+    <div id="home-page">
+      <div class="page-heading"><div><h2>This month</h2><p id="month"></p></div></div>
+      <div id="getting-started" class="getting-started" hidden>
+        <a id="getting-started-link" href="#budget">Add income</a>
+      </div>
+      <div class="balance-panel">
+        <p class="balance-label">Left from entered income</p>
+        <p class="big-number" id="left">$0.00</p>
+        <div class="totals-row"><p>Income <strong id="income">$0.00</strong></p><p>Expenses <strong id="expenses">$0.00</strong></p><p>Moved to savings <strong id="savings">$0.00</strong></p></div>
+      </div>
+      <section id="quick-expense">
+        <div class="section-heading"><h2>Add an expense</h2><a href="#budget">Income &amp; savings</a></div>
+        <form id="expense-form">
+          <label>Amount <input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
+          <label>Category <select name="category" id="expense-category"></select></label>
+          <details>
+            <summary>Name &amp; date</summary>
+            <label>Name (optional) <input name="name" maxlength="60"></label>
+            <label>Date <input name="date" type="date" required></label>
+          </details>
+          <p><button type="submit">Add expense</button></p>
+        </form>
+        <div id="limit-suggestion" class="notice" hidden>
+          <a id="suggestion-link" href="#budget">Set a limit</a>
+          <button type="button" id="dismiss-suggestion">Not now</button>
+        </div>
+      </section>
+
+      <section id="home-tips-section">
+        <h2>Tips and warnings</h2>
+        <div id="home-tips" class="tip-list"></div>
+      </section>
+
+      <section>
+        <div class="section-heading"><h2>Savings plan</h2><a href="#plan">Open plan →</a></div>
+        <div id="home-plan"></div>
+      </section>
+
+      <section>
+        <button type="button" id="try-button">Try spending less</button>
+        <div id="try-panel" hidden>
+          <form id="try-form">
+            <label>Spend less by <input name="amount" type="number" min="0.01" step="0.01" required></label>
+            <button type="submit">Calculate</button>
+          </form>
+          <p id="try-result" role="status"></p>
+          <div id="try-tip" class="tip-list"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <div id="budget-page" hidden>
+      <h2>Budget details</h2>
+      <div class="jump-links"><button type="button" data-jump="entry-section">Add income or savings</button><button type="button" data-jump="limits">Set limits</button><button type="button" data-jump="entries-section">All entries</button></div>
+      <section id="entry-section">
+        <h3>Add an entry</h3>
+        <form id="other-entry-form">
+          <label>Type <select name="type"><option value="income">Income</option><option value="saving">Moved to savings</option></select></label>
+          <label>Amount <input name="amount" type="number" min="0.01" step="0.01" required></label>
+          <label id="saving-place-label" hidden>Where it went <select name="category" id="saving-place"></select></label>
+          <details>
+            <summary>Name &amp; date</summary>
+            <label>Name (optional) <input name="name" maxlength="60"></label>
+            <label>Date <input name="date" type="date" required></label>
+          </details>
+          <p><button type="submit">Add entry</button></p>
+        </form>
+      </section>
+      <section>
+        <h3>Savings goal</h3>
+        <form id="savings-goal-form">
+          <label>Amount per month <input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
+          <div class="form-actions"><button type="submit">Save goal</button><button type="button" id="remove-savings-goal" class="button-quiet" hidden>Remove goal</button></div>
+        </form>
+        <p id="savings-goal-status"></p>
+        <details class="secondary-details"><summary>Savings tips</summary><div id="savings-tips" class="tip-list"></div></details>
+      </section>
+      <section id="limits">
+        <h3>Monthly limits</h3>
+        <form id="limit-form">
+          <label>Category <select name="category" id="limit-category"></select></label>
+          <label>Amount per month <input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
+          <div class="form-actions"><button type="submit">Save limit</button><button type="button" id="remove-limit" class="button-quiet" hidden>Remove this limit</button></div>
+        </form>
+        <div class="table-wrap"><table class="limits-table"><thead><tr><th>Category</th><th>This month</th><th>Monthly limit</th><th>Status</th><th aria-label="Action"></th></tr></thead><tbody id="limit-list"></tbody></table></div>
+      </section>
+      <section id="entries-section">
+        <h3>All entries</h3>
+        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Name</th><th>Category or destination</th><th class="amount-cell">Amount</th><th aria-label="Action"></th></tr></thead><tbody id="entries"></tbody></table></div>
+      </section>
+    </div>
+
+    <div id="plan-page" hidden>
+      <h2>Make a savings plan</h2>
+      <form id="plan-form">
+        <label>Monthly savings goal <input name="goal" type="number" min="0.01" step="0.01" required></label>
+        <details>
+          <summary>Spending categories (optional)</summary>
+          <div id="plan-categories"></div>
+        </details>
+        <p><button type="submit">Show me a plan</button></p>
+      </form>
+      <p id="plan-status" role="status"></p>
+      <div id="plan-result" hidden>
+        <h3>Example plan</h3>
+        <p id="plan-baseline"></p>
+        <p id="plan-needed"></p>
+        <form id="plan-cuts-form">
+          <div id="plan-cut-fields"></div>
+          <p><button type="submit">Update estimate</button></p>
+        </form>
+        <p id="plan-estimate" role="status"></p>
+        <p><button type="button" id="plan-save">Use this plan</button> <button type="button" id="plan-retry">Try another plan</button></p>
+      </div>
+      <section id="saved-plan-section" hidden>
+        <h3>Your saved plan</h3>
+        <div id="saved-plan"></div>
+        <button type="button" id="plan-remove" hidden>Remove plan</button>
+      </section>
+    </div>
+
+    <div id="benefits-page" hidden>
+      <h2>NJ help check</h2>
+      <form id="profile-form">
+        <fieldset>
+          <legend>For NJ SNAP</legend>
+          <label>People in household <input name="people" type="number" min="1" max="20" step="1"></label>
+          <label>Gross monthly income before taxes <input name="grossMonthly" type="number" min="0" step="0.01"></label>
+        </fieldset>
+        <fieldset>
+          <legend>For NJ tax relief</legend>
+          <label>2025 NJ gross income <input name="njGross2025" type="number" min="0" step="0.01"></label>
+          <label>2025 NJ taxable income <input name="njTaxable2025" type="number" min="0" step="0.01"></label>
+          <label>Children age 5 or younger in 2025 <input name="childrenUnder6" type="number" min="0" max="20" step="1"></label>
+          <label>2025 home <select name="housing"><option value="">Choose one</option><option value="own">Owned</option><option value="rent">Rented</option><option value="other">Other</option></select></label>
+          <label><input name="njHome2025" type="checkbox"> New Jersey was my main home in 2025</label>
+        </fieldset>
+        <p><button type="submit">Check possible help</button></p>
+      </form>
+      <section id="benefit-results" hidden>
+        <h3>Possible matches</h3>
+        <p class="field-hint">Screening only. Check official rules.</p>
+        <div id="benefit-list"></div>
+      </section>
+    </div>
+
+  </main>
+  <button id="chat-toggle" type="button" aria-controls="chat-panel" aria-expanded="false">🐻‍❄️ Ask Bear</button>
+  <aside id="chat-panel" aria-label="Ask Bear chat" hidden>
+    <div class="chat-heading">
+      <h2>Ask Bear 🐻‍❄️</h2>
+      <button id="chat-close" type="button" aria-label="Close chat">×</button>
+    </div>
+    <p class="chat-setup">Questions send your entered data to DeepSeek.</p>
+    <div id="chat-messages" aria-live="polite"></div>
+    <form id="chat-form">
+      <label for="chat-question">Your question</label>
+      <textarea id="chat-question" name="question" rows="3" maxlength="500" required></textarea>
+      <p><button id="chat-send" type="submit">Ask Bear</button></p>
+    </form>
+    <p id="chat-status" role="status"></p>
+  </aside>
+</body>
+</html>

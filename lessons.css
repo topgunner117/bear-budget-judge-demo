@@ -1,0 +1,92 @@
+body {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 18px 32px;
+  background: #f6f8f7;
+  color: #20312b;
+  font: 17px/1.5 "Trebuchet MS", Verdana, sans-serif;
+}
+html { background: #f6f8f7; }
+h1, h2, strong, button { font-family: "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; }
+h1 { font-size: 2rem; line-height: 1.2; margin: 8px 0; }
+h2 { font-size: 1.3rem; line-height: 1.3; }
+p { margin: 8px 0 14px; }
+button { cursor: pointer; font-size: 1rem; }
+button:focus-visible, a:focus-visible { outline: 3px solid #174baa; outline-offset: 3px; }
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0;
+}
+.top-bar a { color: #245a48; font-weight: bold; }
+.top-bar strong { color: #245a48; }
+main { min-height: 70vh; background: white; padding: 22px; border: 1px solid #d8e1db; border-radius: 12px; }
+.hello { display: flex; align-items: center; gap: 16px; }
+.hello .bear { font-size: 3rem; }
+.progress { margin: 24px 0 12px; font-weight: bold; color: #245a48; }
+.progress + .plain-button { margin-bottom: 14px; }
+.course-link { margin: 0 0 18px; }
+.course-link a, .lesson-sources a { color: #245a48; font-weight: bold; }
+.lesson-sources { font-size: .88rem; color: #53635b; }
+.unit-path { border-top: 2px dashed #d8e7dc; padding: 18px 0 4px; }
+.unit-row { display: flex; align-items: center; gap: 18px; margin: 18px 0 36px; }
+.unit-row:nth-child(2) { margin-left: 90px; }
+.unit-row:nth-child(3) { margin-left: 26px; }
+body[data-course="high-school"] .unit-row:nth-child(4) { margin-left: 70px; }
+.unit-circle {
+  flex: none;
+  width: 76px;
+  height: 76px;
+  border: 0;
+  border-bottom: 5px solid #278347;
+  border-radius: 50%;
+  background: #69ce71;
+  color: #143923;
+  font-size: 2rem;
+}
+.unit-circle:hover { background: #7edb85; }
+.unit-row.done .unit-circle { background: #9cdded; border-color: #4aa7bf; }
+.unit-name { font-weight: bold; font-size: 1.15rem; }
+.unit-label { font-weight: bold; color: #246649; text-transform: uppercase; letter-spacing: .04em; }
+.plain-button { border: 0; background: none; color: #245a48; padding: 0; text-decoration: underline; }
+.reading-box, .practice-box, .finish-box { margin-top: 20px; padding: 18px; border: 1px solid #d8e1db; border-radius: 12px; background: #f3faf4; }
+.reading-box button, .practice-box #next-button, .finish-box button {
+  padding: 10px 16px;
+  border: 0;
+  border-bottom: 4px solid #278347;
+  border-radius: 9px;
+  background: #69ce71;
+  color: #143923;
+  font-weight: bold;
+}
+.answers { display: grid; gap: 10px; }
+.answers button { padding: 12px; border: 2px solid #a8d5b0; border-radius: 9px; background: white; color: #20312b; text-align: left; }
+.answers button:hover:not(:disabled) { background: #e9f8eb; }
+.answers button.correct { background: #def4e1; border-color: #49a25a; }
+.answers button:disabled { cursor: default; }
+#answer-message { min-height: 1.5em; font-weight: bold; }
+.finish-box { text-align: center; }
+.finish-box span { font-size: 2rem; }
+body[data-course="high-school"] { font: 16px/1.5 "Segoe UI", Arial, sans-serif; }
+body[data-course="high-school"] .hello .bear { font-size: 2.2rem; }
+body[data-course="high-school"] .unit-circle,
+body[data-course="high-school"] .reading-box button,
+body[data-course="high-school"] .practice-box #next-button,
+body[data-course="high-school"] .finish-box button { background: #b8d9ee; border-color: #5a9bb8; color: #193f55; }
+body[data-course="high-school"] .reading-box,
+body[data-course="high-school"] .practice-box,
+body[data-course="high-school"] .finish-box { background: #f3f8fb; }
+[hidden] { display: none !important; }
+@media (max-width: 520px) {
+  body { padding: 0 10px 24px; }
+  main { padding: 16px; }
+  .hello { align-items: flex-start; }
+  .hello .bear { font-size: 2rem; }
+  h1 { font-size: 1.6rem; }
+  .unit-row:nth-child(2) { margin-left: 48px; }
+  .unit-row:nth-child(3) { margin-left: 8px; }
+  body[data-course="high-school"] .unit-row:nth-child(4) { margin-left: 24px; }
+  .unit-circle { width: 66px; height: 66px; }
+}

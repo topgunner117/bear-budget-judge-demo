@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Money Lessons | Bear Budget</title>
+  <link rel="stylesheet" href="lessons.css">
+  <script defer src="lessons.js"></script>
+</head>
+<body>
+  <header class="top-bar">
+    <a id="lessons-back" href="index.html#home">← Bear Budget</a>
+    <strong>🐻‍❄️ Money Lessons</strong>
+  </header>
+
+  <main>
+    <div id="path-page">
+      <div class="hello">
+        <span class="bear" aria-hidden="true">🐻‍❄️</span>
+        <div>
+          <h1>Learn money basics!</h1>
+        </div>
+      </div>
+      <p id="progress" class="progress" role="status">0 of 3 units finished</p>
+      <button id="reset-button" class="plain-button" type="button">Start over</button>
+      <p class="course-link"><a id="other-course" href="high-school-lessons.html">High school lessons →</a></p>
+      <div id="unit-path" class="unit-path"></div>
+    </div>
+
+    <div id="lesson-page" hidden>
+      <button id="back-button" class="plain-button" type="button">← All units</button>
+      <p id="unit-label" class="unit-label"></p>
+      <h1 id="lesson-title"></h1>
+      <div id="reading-box" class="reading-box">
+        <div id="reading-text"></div>
+        <button id="start-button" type="button">Try the questions</button>
+      </div>
+      <div id="practice-box" class="practice-box" hidden>
+        <p id="question-count" class="unit-label"></p>
+        <h2 id="question-text"></h2>
+        <div id="answers" class="answers"></div>
+        <p id="answer-message" role="status"></p>
+        <button id="next-button" type="button" hidden>Next question</button>
+      </div>
+      <div id="finish-box" class="finish-box" hidden>
+        <span aria-hidden="true">⭐ 🐻‍❄️ ⭐</span>
+        <h2>Unit finished!</h2>
+        <button id="finish-button" type="button">See all units</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
